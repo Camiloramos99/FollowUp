@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { NavBarContext } from "../contexts/NavbarContext"
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
 
@@ -10,18 +11,20 @@ const NavBar = () => {
             </li>
             <ul className="flex w-full place-content-end ">
                 <li className="flex p-5 items-center">
-                    Habits
+                    <Link to="/">Habits</Link>
                     
                 </li>
 
                 <li className="flex p-5 items-center ">
-                    To-DO
+                    <Link to="/to-do">To-DO</Link>
+
                         
                     
                 </li>
 
                 <li className="flex p-5 items-center">
-                    Expense
+                    <Link to="/expense">Expense</Link>
+
         
                 </li>
 
