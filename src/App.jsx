@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { NavBarProvider } from './contexts/NavbarContext';
-import { NavBar } from './components/NavBar';
+import { NavBar } from './components/NavBar/NavBar';
 import { Habits } from '/src/pages/Habits';
 import { ToDo } from './pages/To-Do';
 import { Expense } from './pages/Expense';
