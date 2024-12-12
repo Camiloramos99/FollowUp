@@ -1,4 +1,19 @@
+import React, { useContext, useState, useEffect } from 'react'
+import { AppContext } from "../../contexts/AppContext.jsx";
+
 const HabitForm = () => {
+    const { selectedDate } = useContext(AppContext);
+    const [date, setDate ] = useState("");
+
+    useEffect(() => {
+      setDate(selectedDate || ""); 
+    },[selectedDate]);
+
+    
+    const handleDateChange = (e) => { 
+      setDate(e.target.value); 
+    };
+    
     return (
       <div className="bg-gray-900 rounded-lg shadow-md p-6 max-w-sm mx-auto">
         
@@ -7,6 +22,8 @@ const HabitForm = () => {
                 type="date" 
                 className="bg-gray-900 text-gray-100 text-lg font-semibold mb-4 w-full px-4 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
                 style={{ colorScheme: 'dark' }} 
+                value={date}
+                onChange={handleDateChange}
             />
         </div>
 

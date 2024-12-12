@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Styles.css';  
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
+import { AppContext } from '../../contexts/AppContext.jsx';
 
 
 const generateDateRange = (startDate, endDate) => {
@@ -13,8 +14,10 @@ const generateDateRange = (startDate, endDate) => {
     }
     return dates;
 };
-
 const Calendar = () => {
+
+    const { setSelectedDate } = useContext(AppContext);
+
     const dummyData = [
         { date: '2024-01-01', count: 1 },
         { date: '2024-01-06', count: 1 },
@@ -34,7 +37,7 @@ const Calendar = () => {
 
     const handleDayClick = (value) => {
         if (value) {
-            alert(`Clicked on date: ${value.date}`);
+            setSelectedDate(value.date);
         } else {
             alert('No value passed');
         }
