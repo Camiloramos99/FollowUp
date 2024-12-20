@@ -16,22 +16,13 @@ const generateDateRange = (startDate, endDate) => {
 };
 const Calendar = () => {
 
-    const { setSelectedDate } = useContext(AppContext);
-
-    const dummyData = [
-        { date: '2024-01-01', count: 1 },
-        { date: '2024-01-06', count: 1 },
-        { date: '2024-12-31', count: 1 },
-        { date: '2024-10-10', count: 1 },
-        { date: '2024-07-30', count: 3 },
-        { date: '2024-07-07', count: 3 },
-    ];
+    const { setSelectedDate , calendarData } = useContext(AppContext);
 
     const startDate = new Date('2023-12-31');
     const endDate = new Date('2024-12-31');
 
     const allDates = generateDateRange(startDate, endDate).map((date) => {
-        const found = dummyData.find(d => d.date === date);
+        const found = calendarData.find(d => d.date === date);
         return found ? found : { date, count: 0 };
     });
 

@@ -1,19 +1,28 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { AppContext } from "../../contexts/AppContext.jsx";
 
 const HabitForm = () => {
-    const { selectedDate } = useContext(AppContext);
+    const { selectedDate, markDayAsCompleted } = useContext(AppContext);
     const [date, setDate ] = useState("");
+    const checkboxRef = useRef(null);
+    const dateInputRef = useRef(null);
 
     useEffect(() => {
       setDate(selectedDate || ""); 
     },[selectedDate]);
 
-    
+
     const handleDateChange = (e) => { 
       setDate(e.target.value); 
     };
-    
+
+    const handleHabitSave = () => {
+      if (checkboxRef.current.checked) {
+          const dateInHabitForm = dateInputRef.current.value;
+          markDayAsCompleted(dateInHabitForm);
+      } 
+  };  
+
     return (
       <div className="bg-gray-900 rounded-lg shadow-md p-6 max-w-sm mx-auto">
         
@@ -24,6 +33,7 @@ const HabitForm = () => {
                 style={{ colorScheme: 'dark' }} 
                 value={date}
                 onChange={handleDateChange}
+                ref={dateInputRef}
             />
         </div>
 
@@ -31,6 +41,7 @@ const HabitForm = () => {
           <input 
             type="checkbox" 
             id="completed" 
+            ref={checkboxRef}
             className="h-4 w-4 text-indigo-400 focus:ring-indigo-500 border-gray-600 rounded" 
           />
           <label 
@@ -55,7 +66,8 @@ const HabitForm = () => {
         </div>
   
         <div className="flex justify-end">
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+          <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+            onClick={handleHabitSave} >
             Guardar
           </button>
         </div>
