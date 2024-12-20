@@ -17,8 +17,8 @@ const AppProvider = ({ children }) => {
     const markDayAsCompleted = (date) => {
         setCalendarData(prevData => {
             const newData = [...prevData];
-            const notFound = newData.find(d => d.date !== date);
-            if (notFound) {
+            const found = newData.find(d => d.date === date);
+            if (!found) {
                 newData.push({ date, count: 1 });
             }
             return newData;
