@@ -35,12 +35,8 @@ const Calendar = () => {
     };
 
     return (
-        <div className="w-full flex items-center flex-col">
-            <h1 className="text-4xl font-bold text-gray-900 tracking-wide mb-6 relative">
-                Habit Name
-                <span className="absolute left-0 bottom-[-8px] w-full h-1 bg-gradient-to-r from-neutral-50 to-green-600 rounded-sm"></span>
-            </h1>
-            <div className="w-8/12 border-2 border-gray-100 rounded-t-lg shadow-lg p-4">
+        <div className="flex items-center">
+            <div className="w-10/12 border-2 border-gray-100 rounded-t-lg shadow-lg p-4">
                 <CalendarHeatmap
                     startDate={startDate}
                     endDate={endDate}

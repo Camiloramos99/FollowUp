@@ -24,7 +24,7 @@ const HabitForm = () => {
   };  
 
     return (
-      <div className="bg-gray-900 rounded-lg shadow-md p-6 max-w-sm mx-auto">
+      <div className="bg-gray-900 rounded-lg border border-gray-700 shadow-2xl p-6 mt-28 max-w-xs mx-auto">
         
         <div className="relative">
             <input 
