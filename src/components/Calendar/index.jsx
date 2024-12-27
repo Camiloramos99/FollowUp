@@ -44,7 +44,7 @@ const Calendar = () => {
                     horizontal={true}
                     showWeekdayLabels={true}
                     weekLabels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-                    titleForValue={(value) => value ? `Date: ${value.date}` : 'No data'}
+                    titleForValue={(value) => value ? `${value.date}${value.description ? `\n${value.description}` : ''}` : 'No data'}
                     classForValue={(value) => value && value.count > 0 ? `color-scale-${value.count}` : 'color-empty'}
                     onClick={handleDayClick}
                 />

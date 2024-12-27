@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react'
 import { AppContext } from "../../contexts/AppContext.jsx";
 
 const HabitForm = () => {
-    const { selectedDate, markDayAsCompleted } = useContext(AppContext);
+    const { selectedDate, saveHabit } = useContext(AppContext);
     const [date, setDate ] = useState("");
     const checkboxRef = useRef(null);
     const dateInputRef = useRef(null);
@@ -17,10 +17,10 @@ const HabitForm = () => {
     };
 
     const handleHabitSave = () => {
-      if (checkboxRef.current.checked) {
-          const dateInHabitForm = dateInputRef.current.value;
-          markDayAsCompleted(dateInHabitForm);
-      } 
+      const dateInHabitForm = dateInputRef.current.value;
+      const isChecked = checkboxRef.current.checked;  
+
+      saveHabit(dateInHabitForm, isChecked);
   };  
 
     return (

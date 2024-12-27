@@ -14,19 +14,25 @@ const AppProvider = ({ children }) => {
         { date: '2024-07-07', count: 3 },
     ]);
 
-    const markDayAsCompleted = (date) => {
+    const saveHabit = (date, isChecked) => {
         setCalendarData(prevData => {
             const newData = [...prevData];
             const found = newData.find(d => d.date === date);
-            if (!found) {
-                newData.push({ date, count: 1 });
+            if(!found) {
+                newData.push({ 
+                    date, 
+                    count: isChecked? 1 : 0, 
+                    description: description.value || ''
+                });
+            } else {
+                found.description = description.value || '';
             }
             return newData;
         } )
     }
 
     return (
-        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, markDayAsCompleted }}>
+        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit }}>
             {children}
         </AppContext.Provider>
     );
