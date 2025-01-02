@@ -5,7 +5,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
 
     const defaultCalendarData = [
-        { date: '2024-01-01', count: 1, description: 'Push Ups: 3 x 15' }
+        { date: '2024-01-01', count: 3, description: 'Push Ups: 3 x 15' }
     ];
 
     const [selectedDate, setSelectedDate] = useState();
@@ -27,19 +27,19 @@ const AppProvider = ({ children }) => {
             if(!found) {
                 newData.push({ 
                     date, 
-                    count: isChecked? 1 : 0, 
+                    count: isChecked? 3 : 0, 
                     description: description.value || ''
                 });
             } else {
                 found.description = description.value || '';
             }
             
-            guardarHabitosEnLocalStorage(newData);
+            saveHabitInLocalStorage(newData);
             return newData;
         } )
     }
 
-    function guardarHabitosEnLocalStorage(calendarData) {
+    function saveHabitInLocalStorage(calendarData) {
         localStorage.setItem('habitos', JSON.stringify(calendarData));
     }
     

@@ -47,7 +47,7 @@ const HabitForm = () => {
           <label 
             htmlFor="completed" 
             className="ml-2 block text-sm font-medium text-gray-200">
-            Marcar como completado
+            Mark as completed
           </label>
         </div>
   
@@ -55,7 +55,7 @@ const HabitForm = () => {
           <label 
             htmlFor="description" 
             className="block text-sm font-medium text-gray-200">
-            Descripción (opcional)
+            Description (optional)
           </label>
           <textarea 
             id="description" 
@@ -68,7 +68,7 @@ const HabitForm = () => {
         <div className="flex justify-end">
           <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
             onClick={handleHabitSave} >
-            Guardar
+            Save
           </button>
         </div>
       </div>
