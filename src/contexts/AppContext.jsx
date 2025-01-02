@@ -1,18 +1,24 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+
+    const defaultCalendarData = [
+        { date: '2024-01-01', count: 1, description: 'Push Ups: 3 x 15' }
+    ];
+
     const [selectedDate, setSelectedDate] = useState();
 
-    const [calendarData, setCalendarData] = useState([
-        { date: '2024-01-01', count: 1 },
-        { date: '2024-01-06', count: 1 },
-        { date: '2024-12-31', count: 1 },
-        { date: '2024-10-10', count: 1 },
-        { date: '2024-07-30', count: 3 },
-        { date: '2024-07-07', count: 3 },
-    ]);
+    const [calendarData, setCalendarData] = useState(defaultCalendarData);
+
+
+    useEffect(() => {
+        const storedData  = localStorage.getItem('habitos');
+        if (storedData) {
+            setCalendarData(JSON.parse(storedData));
+          } 
+    }, []);
 
     const saveHabit = (date, isChecked) => {
         setCalendarData(prevData => {
@@ -27,10 +33,16 @@ const AppProvider = ({ children }) => {
             } else {
                 found.description = description.value || '';
             }
+            
+            guardarHabitosEnLocalStorage(newData);
             return newData;
         } )
     }
 
+    function guardarHabitosEnLocalStorage(calendarData) {
+        localStorage.setItem('habitos', JSON.stringify(calendarData));
+    }
+    
     return (
         <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit }}>
             {children}
