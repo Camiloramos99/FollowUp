@@ -16,7 +16,7 @@ const generateDateRange = (startDate, endDate) => {
 };
 const Calendar = () => {
 
-    const { setSelectedDate , calendarData, setIsChecked } = useContext(AppContext);
+    const { setSelectedDate , calendarData, setIsChecked, setCurrentDescription } = useContext(AppContext);
 
     const startDate = new Date('2023-12-31');
     const endDate = new Date('2024-12-31');
@@ -30,11 +30,12 @@ const Calendar = () => {
         if (value?.count === 3) {
             setSelectedDate(value.date);
             setIsChecked(true);
-            console.log(value.count);
+            setCurrentDescription(value.description);
+            console.log(value.description);
         } else if (value) {
             setSelectedDate(value.date);
             setIsChecked(false);
-            console.log(value.count);
+            setCurrentDescription('');
         } else {
             alert('No value passed');
         }

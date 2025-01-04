@@ -12,6 +12,8 @@ const AppProvider = ({ children }) => {
 
     const [selectedDate, setSelectedDate] = useState();
 
+    const [currentDescription, setCurrentDescription ] = useState('');
+
     const [calendarData, setCalendarData] = useState(defaultCalendarData);
 
 
@@ -54,7 +56,7 @@ const AppProvider = ({ children }) => {
     }
     
     return (
-        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit, isChecked, setIsChecked }}>
+        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit, isChecked, setIsChecked, currentDescription, setCurrentDescription }}>
             {children}
         </AppContext.Provider>
     );

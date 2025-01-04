@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react'
 import { AppContext } from "../../contexts/AppContext.jsx";
 
 const HabitForm = () => {
-    const { selectedDate, saveHabit, isChecked, setIsChecked } = useContext(AppContext);
+    const { selectedDate, saveHabit, isChecked, setIsChecked, setCurrentDescription, currentDescription } = useContext(AppContext);
     const [date, setDate ] = useState("");
     const checkboxRef = useRef(null);
     const dateInputRef = useRef(null);
@@ -63,7 +63,10 @@ const HabitForm = () => {
             id="description" 
             rows="3" 
             className="mt-1 p-2 block w-full shadow-sm border border-gray-600 bg-gray-800 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
-            placeholder="E.g. Series de ejercicio: 3x15"
+            placeholder="E.g. Exercise sets: 3x15"
+            value={currentDescription} 
+            onChange={(e) => setCurrentDescription(e.target.value)}
+            
           />
         </div>
   
