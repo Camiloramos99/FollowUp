@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react'
 import { AppContext } from "../../contexts/AppContext.jsx";
 
 const HabitForm = () => {
-    const { selectedDate, saveHabit } = useContext(AppContext);
+    const { selectedDate, saveHabit, isChecked, setIsChecked } = useContext(AppContext);
     const [date, setDate ] = useState("");
     const checkboxRef = useRef(null);
     const dateInputRef = useRef(null);
@@ -42,6 +42,8 @@ const HabitForm = () => {
             type="checkbox" 
             id="completed" 
             ref={checkboxRef}
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
             className="h-4 w-4 text-indigo-400 focus:ring-indigo-500 border-gray-600 rounded" 
           />
           <label 

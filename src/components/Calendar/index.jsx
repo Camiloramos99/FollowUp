@@ -16,7 +16,7 @@ const generateDateRange = (startDate, endDate) => {
 };
 const Calendar = () => {
 
-    const { setSelectedDate , calendarData } = useContext(AppContext);
+    const { setSelectedDate , calendarData, setIsChecked } = useContext(AppContext);
 
     const startDate = new Date('2023-12-31');
     const endDate = new Date('2024-12-31');
@@ -27,12 +27,19 @@ const Calendar = () => {
     });
 
     const handleDayClick = (value) => {
-        if (value) {
+        if (value?.count === 3) {
             setSelectedDate(value.date);
+            setIsChecked(true);
+            console.log(value.count);
+        } else if (value) {
+            setSelectedDate(value.date);
+            setIsChecked(false);
+            console.log(value.count);
         } else {
             alert('No value passed');
         }
     };
+    
 
     return (
         <div className="flex items-center">

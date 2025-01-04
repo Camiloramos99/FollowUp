@@ -8,6 +8,8 @@ const AppProvider = ({ children }) => {
         { date: '2024-01-01', count: 3, description: 'Push Ups: 3 x 15' }
     ];
 
+    const [isChecked, setIsChecked] = useState(false);
+
     const [selectedDate, setSelectedDate] = useState();
 
     const [calendarData, setCalendarData] = useState(defaultCalendarData);
@@ -24,27 +26,35 @@ const AppProvider = ({ children }) => {
         setCalendarData(prevData => {
             const newData = [...prevData];
             const found = newData.find(d => d.date === date);
-            if(!found) {
-                newData.push({ 
-                    date, 
-                    count: isChecked? 3 : 0, 
+    
+            if (!found) {
+                newData.push({
+                    date,
+                    count: isChecked ? 3 : 0, 
                     description: description.value || ''
                 });
             } else {
-                found.description = description.value || '';
+                if (isChecked) {
+                    found.count = 3;
+                    found.description = description.value || '';
+                } else {
+                    found.count = 0;
+                    found.description = description.value || '';
+                }
             }
-            
-            saveHabitInLocalStorage(newData);
+    
+            saveHabitInLocalStorage(newData); 
             return newData;
-        } )
-    }
+        });
+    };
+    
 
     function saveHabitInLocalStorage(calendarData) {
         localStorage.setItem('habitos', JSON.stringify(calendarData));
     }
     
     return (
-        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit }}>
+        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit, isChecked, setIsChecked }}>
             {children}
         </AppContext.Provider>
     );
