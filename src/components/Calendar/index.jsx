@@ -31,7 +31,6 @@ const Calendar = () => {
             setSelectedDate(value.date);
             setIsChecked(true);
             setCurrentDescription(value.description);
-            console.log(value.description);
         } else if (value) {
             setSelectedDate(value.date);
             setIsChecked(false);

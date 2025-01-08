@@ -49,7 +49,7 @@ const HabitForm = () => {
           <label 
             htmlFor="completed" 
             className="ml-2 block text-sm font-medium text-gray-200">
-            Mark as completed
+            {isChecked ? 'Unmark as completed' : 'Mark as completed'}
           </label>
         </div>
   
