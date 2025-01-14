@@ -16,7 +16,7 @@ const generateDateRange = (startDate, endDate) => {
 };
 const Calendar = () => {
 
-    const { setSelectedDate , calendarData, setIsChecked, setCurrentDescription } = useContext(AppContext);
+    const { setSelectedDate , calendarData, setIsChecked, setCurrentDescription, selectedYear, setSelectedYear } = useContext(AppContext);
 
     const startDate = new Date('2023-12-31');
     const endDate = new Date('2024-12-31');
@@ -55,6 +55,25 @@ const Calendar = () => {
                     classForValue={(value) => value && value.count > 0 ? `color-scale-${value.count}` : 'color-empty'}
                     onClick={handleDayClick}
                 />
+            </div>
+            <div>
+                <label htmlFor="year-selected">Select the year</label>
+                <select 
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value) }>
+                { Array.from({ length: 5 }, (_, index) => {
+                    const year = new Date().getFullYear() - index;
+                    return (
+                    <option className="p-2 border border-gray-300 rounded"
+                        key={year} 
+                        value={year} 
+                        >
+                        {year}
+                    </option>
+                    );
+
+                })}
+                </select>
             </div>
         </div>
     );

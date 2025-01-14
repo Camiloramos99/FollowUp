@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { use } from 'react';
 
 const AppContext = createContext();
 
@@ -11,6 +12,8 @@ const AppProvider = ({ children }) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const [selectedDate, setSelectedDate] = useState();
+
+    const [selectedYear, setSelectedYear ] = useState(new Date().getFullYear());
 
     const [currentDescription, setCurrentDescription ] = useState('');
 
@@ -56,7 +59,7 @@ const AppProvider = ({ children }) => {
     }
     
     return (
-        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit, isChecked, setIsChecked, currentDescription, setCurrentDescription }}>
+        <AppContext.Provider value={{ selectedDate, setSelectedDate, setCalendarData, calendarData, saveHabit, isChecked, setIsChecked, currentDescription, setCurrentDescription, selectedYear, setSelectedYear }}>
             {children}
         </AppContext.Provider>
     );
