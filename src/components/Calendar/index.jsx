@@ -61,7 +61,7 @@ const Calendar = () => {
                 <select 
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value) }>
-                { Array.from({ length: 5 }, (_, index) => {
+                { Array.from({ length: 1 }, (_, index) => {
                     const year = new Date().getFullYear() - index;
                     return (
                     <option className="p-2 border border-gray-300 rounded"
