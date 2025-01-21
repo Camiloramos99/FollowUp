@@ -6,7 +6,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
 
     const defaultCalendarData = [
-        { date: '2024-01-01', count: 3, description: 'Push Ups: 3 x 15' }
+        { date: '2025-01-01', count: 3, description: 'Push Ups: 3 x 15' }
     ];
 
     const [isChecked, setIsChecked] = useState(false);

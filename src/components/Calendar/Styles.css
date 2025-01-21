@@ -11,3 +11,6 @@
      fill: #1e6823; 
 }
 
+.react-calendar-heatmap-weekday-labels {
+    transform: translate(5px, 2px);
+}

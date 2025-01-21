@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Styles.css';  
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { AppContext } from '../../contexts/AppContext.jsx';
-
 
 const generateDateRange = (startDate, endDate) => {
     let dates = [];
@@ -14,12 +13,13 @@ const generateDateRange = (startDate, endDate) => {
     }
     return dates;
 };
+
 const Calendar = () => {
 
     const { setSelectedDate , calendarData, setIsChecked, setCurrentDescription, selectedYear, setSelectedYear } = useContext(AppContext);
 
-    const startDate = new Date('2023-12-31');
-    const endDate = new Date('2024-12-31');
+    const startDate = new Date('2024-12-31');
+    const endDate = new Date('2025-12-31');
 
     const allDates = generateDateRange(startDate, endDate).map((date) => {
         const found = calendarData.find(d => d.date === date);
@@ -39,7 +39,7 @@ const Calendar = () => {
             alert('No value passed');
         }
     };
-    
+
 
     return (
         <div className="flex items-center">
@@ -50,7 +50,7 @@ const Calendar = () => {
                     values={allDates} 
                     horizontal={true}
                     showWeekdayLabels={true}
-                    weekLabels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+                    weekLabels={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
                     titleForValue={(value) => value ? `${value.date}${value.description ? `\n${value.description}` : ''}` : 'No data'}
                     classForValue={(value) => value && value.count > 0 ? `color-scale-${value.count}` : 'color-empty'}
                     onClick={handleDayClick}
@@ -71,7 +71,6 @@ const Calendar = () => {
                         {year}
                     </option>
                     );
-
                 })}
                 </select>
             </div>
