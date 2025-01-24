@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../contexts/AppContext';
 import { FaRegEdit } from "react-icons/fa";
+import './styles.css';  
 
 const CalendarTitle = () => {
   const { calendarTitleText, setCalendarTitleText } = useContext(AppContext);
@@ -23,7 +24,7 @@ const CalendarTitle = () => {
   
 
   return (
-    <div className="flex items-center justify-between absolute top-[-6%]">
+    <div className="flex items-center justify-between absolute z-10 ml-4 ">
       {editMode ? (
         <div className="flex flex-row items-center">
           <input 
@@ -31,17 +32,17 @@ const CalendarTitle = () => {
             value={newTitle} 
             onChange={(e) => setNewTitle(e.target.value)} 
             onKeyDown={handleKeyDown}
-            className="w-64 text-xs font-semibold text-gray-900 bg-gray-50 px-4 py-2 rounded-lg transition duration-300 ease-in-out"
+            className="w-64 text-xs font-semibold text-gray-900 bg-gray-50 px-4 py-2 transition duration-300 ease-in-out"
           />
           <button 
             onClick={handleEdit} 
-            className="ml-2 text-xs font-semibold text-green-400 bg-gray-900 px-4 py-2 rounded-lg hover:bg-opacity-90 transition duration-300 ease-in-out"
+            className="ml-2 text-xs font-semibold text-green-400 bg-gray-900 px-4 py-2 hover:bg-opacity-90 transition duration-300 ease-in-out"
           >
             Save
           </button>
         </div>
       ) : (
-        <h1 className="flex flex-row text-xs font-semibold text-gray-50 bg-gray-900 px-4 py-2 rounded-lg hover:bg-opacity-90 hover:text-green-400 transition duration-300 ease-in-out">
+        <h1 className="flex flex-row text-xs font-semibold text-gray-50 border border-gray-300 bg-gray-900 px-4 py-2 custom-input hover:bg-opacity-90 hover:text-green-400 transition duration-300 ease-in-out">
           {calendarTitleText}
           <FaRegEdit 
             className='self-center ml-2'

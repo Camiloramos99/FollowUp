@@ -24,13 +24,13 @@ const HabitForm = () => {
   };  
 
     return (
-      <div className="bg-gray-900 rounded-lg border border-gray-700 shadow-2xl p-6 mt-28 max-w-xs mx-auto">
+      <div className="rounded-lg bg-white border border-gray-700 shadow-2xl p-6 m-2 mx-auto">
         
-        <div className="relative">
+        <div >
             <input 
                 type="date" 
-                className="bg-gray-900 text-gray-100 text-lg font-semibold mb-4 w-full px-4 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
-                style={{ colorScheme: 'dark' }} 
+                className=" text-[#66666679] text-lg font-semibold mb-4 w-full px-4 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+                style={{ colorScheme: 'normal' }} 
                 value={date}
                 onChange={handleDateChange}
                 ref={dateInputRef}
@@ -48,7 +48,7 @@ const HabitForm = () => {
           />
           <label 
             htmlFor="completed" 
-            className="ml-2 block text-sm font-medium text-gray-200">
+            className="ml-2 block text-sm font-medium text-[#66666679]">
             {isChecked ? 'Unmark as completed' : 'Mark as completed'}
           </label>
         </div>
@@ -56,13 +56,13 @@ const HabitForm = () => {
         <div className="mb-4">
           <label 
             htmlFor="description" 
-            className="block text-sm font-medium text-gray-200">
+            className="block text-sm font-medium text-[#66666679] ">
             Description (optional)
           </label>
           <textarea 
             id="description" 
             rows="3" 
-            className="mt-1 p-2 block w-full shadow-sm border border-gray-600 bg-gray-800 text-gray-100 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+            className="mt-1 p-2 block w-full shadow-sm bg-white text-[#66666679] border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm" 
             placeholder="E.g. Exercise sets: 3x15"
             value={currentDescription} 
             onChange={(e) => setCurrentDescription(e.target.value)}

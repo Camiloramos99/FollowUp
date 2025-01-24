@@ -40,10 +40,9 @@ const Calendar = () => {
         }
     };
 
-
     return (
-        <div className="flex items-center">
-            <div className="w-10/12 border-2 border-gray-100 rounded-t-lg shadow-lg p-4">
+        <div className="flex relative m-2 items-center">
+            <div className="w-10/12 items-center border-2 bg-white border-gray-100 m-2 rounded-t-lg shadow-lg p-4">
                 <CalendarHeatmap
                     startDate={startDate}
                     endDate={endDate}
@@ -56,9 +55,10 @@ const Calendar = () => {
                     onClick={handleDayClick}
                 />
             </div>
-            <div>
-                <label htmlFor="year-selected">Select the year</label>
+            <div className='bg-white h-full w-34 rounded-lg' >
+                <label className='text-[#66666679] bg-white' htmlFor="year-selected">Select the year</label>
                 <select 
+                className='text-[#66666679]'
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value) }>
                 { Array.from({ length: 1 }, (_, index) => {
