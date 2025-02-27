@@ -22,7 +22,7 @@ const NavBar = () => {
             <Link to="/signIn">Sign In</Link>
           </button>
           <button className="border border-white bg-white rounded-md w-16 h-7 text-black">
-            Register
+            <Link to="/Register">Register</Link>
           </button>
         </li>
       </ul>

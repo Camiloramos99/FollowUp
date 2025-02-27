@@ -5,6 +5,7 @@ import { Habits } from "/src/pages/Habits";
 import { ToDo } from "./pages/To-Do";
 import { Expense } from "./pages/Expense";
 import { SignIn } from "./pages/SigIn";
+import { Register } from "./pages/Register";
 import { AppProvider } from "./contexts/AppContext";
 import "./App.css";
 
@@ -20,6 +21,7 @@ function App() {
               <Route path="/to-do" element={<ToDo />} />
               <Route path="/expense" element={<Expense />} />
               <Route path="/signIn" element={<SignIn />} />
+              <Route path="/Register" element={<Register />} />
             </Routes>
           </NavBarProvider>
         </Router>
