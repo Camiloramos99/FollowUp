@@ -19,7 +19,7 @@ const NavBar = () => {
         </li>
         <li className="flex items-center space-x-1 p-5">
           <button className="border border-gray-600 bg-gray-600 rounded-md w-16 h-7">
-            Sign In
+            <Link to="/signIn">Sign In</Link>
           </button>
           <button className="border border-white bg-white rounded-md w-16 h-7 text-black">
             Register
