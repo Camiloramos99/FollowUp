@@ -20,6 +20,7 @@ const SignIn = () => {
             id="email"
             placeholder="your email"
             className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
+            autoComplete="email"
           />
           <label
             htmlFor="password"
@@ -32,6 +33,7 @@ const SignIn = () => {
             id="password"
             placeholder="your password"
             className="bg-text-input-field text-base rounded-lg h-10 p-2 mb-6"
+            autoComplete="current-password"
           />
           <Link to="/">
             <button className="place-self-center font-bold  bg-[#426B69] text-white rounded-lg h-12 w-full mb-4">
