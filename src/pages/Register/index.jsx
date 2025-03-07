@@ -3,18 +3,30 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerUser } from "../../../authService.js";
+import { sendVerificationEmail } from "../../../authService.js";
+import { reload } from "firebase/auth";
 
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [verificationMessage, setVerificationMessage] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const user = await registerUser(email, password);
-      navigate("/");
+      await sendVerificationEmail(user);
+      setVerificationMessage("Check your email to complete verification.");
+
+      const checkEmailVerified = setInterval(async () => {
+        await reload(user);
+        if (user.emailVerified) {
+          clearInterval(checkEmailVerified);
+          navigate("/");
+        }
+      }, 5000);
     } catch (err) {
       setError(err.message);
     }
@@ -82,6 +94,9 @@ const Register = () => {
           >
             Create
           </button>
+          {verificationMessage && (
+            <p className="text-white">{verificationMessage}</p>
+          )}
         </form>
         {error && <p>{error}</p>}
       </div>

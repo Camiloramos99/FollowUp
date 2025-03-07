@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase.js";
+import { sendEmailVerification } from "firebase/auth";
 
 const registerUser = async (email, password) => {
   try {
@@ -15,4 +16,10 @@ const registerUser = async (email, password) => {
   }
 };
 
-export { registerUser };
+const sendVerificationEmail = async (user) => {
+  try {
+    await sendEmailVerification(user);
+  } catch (error) {}
+};
+
+export { registerUser, sendVerificationEmail };
