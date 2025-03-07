@@ -1,14 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { registerUser } from "../../../authService.js";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await registerUser(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center relative w-full h-screen ">
       <div className="login-container flex flex-col h-full w-80">
         <h1 className="flex flex-col font-sans font-semibold text-white text-xl mt-6 mb-6">
           Create your account
         </h1>
-        <form className="form flex flex-col mt-1 h-full w-full">
+        <form
+          className="form flex flex-col mt-1 h-full w-full"
+          onSubmit={handleRegister}
+        >
           <label
             htmlFor="name"
             className="font-medium text-white font-sans mb-1"
@@ -19,7 +40,7 @@ const Register = () => {
             type="text"
             id="name"
             name="name"
-            placeholder="your name"
+            placeholder="Your name"
             className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
             autoComplete="name"
           />
@@ -30,12 +51,14 @@ const Register = () => {
             Email
           </label>
           <input
-            type="text"
+            type="email"
             id="email"
             name="email"
-            placeholder="camiloramos99@outlook.com"
+            placeholder="New email"
             className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label
             htmlFor="password"
@@ -47,9 +70,11 @@ const Register = () => {
             type="password"
             id="password"
             name="password"
-            placeholder="***********"
+            placeholder="New password"
             className="bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
             autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
             className="place-self-center font-bold bg-[#426B69] text-white rounded-lg h-12 w-full mt-6 mb-7"
@@ -58,6 +83,7 @@ const Register = () => {
             Create
           </button>
         </form>
+        {error && <p>{error}</p>}
       </div>
     </div>
   );
