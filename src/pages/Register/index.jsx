@@ -8,29 +8,74 @@ import { reload } from "firebase/auth";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [verificationMessage, setVerificationMessage] = useState("");
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await registerUser(email, password);
-      await sendVerificationEmail(user);
-      setVerificationMessage("Check your email to complete verification.");
+const handleRegister = async (e) => {
+  e.preventDefault();
+  setError(null); // Clean previous errors
+  setVerificationMessage(null); // Clean previous messages
 
-      const checkEmailVerified = setInterval(async () => {
-        await reload(user);
-        if (user.emailVerified) {
-          clearInterval(checkEmailVerified);
-          navigate("/");
-        }
-      }, 5000);
-    } catch (err) {
-      setError(err.message);
+  // 1. Field validation
+  if (!email.trim()) {
+    setError("Please enter a valid email address.");
+    return;
+  }
+  if (!password || password.length < 6) {
+    setError("The password must be at least 6 characters.");
+    return;
+  }
+
+  let user;
+
+  // 2. User register
+  try {
+    user = await registerUser(email, password);
+  } catch (err) {
+    const errorMessages = {
+      "auth/email-already-in-use": "This email address is already registered. You'll probably be logged in.",
+      "auth/invalid-email": "The email format is not valid.",
+      "auth/weak-password": "Password too weak.",
+      "auth/network-request-failed": "Connection problem. Please try again.",
+    };
+    setError(errorMessages[err.code] || "Unexpected error. Please try again later.");
+    return;
+  }
+
+  // 3. Sending verification email
+  try {
+    await sendVerificationEmail(user);
+    setVerificationMessage("Check your email to complete verification.");
+  } catch (err) {
+    setError("The verification email could not be sent. Please try again later.");
+    return;
+  }
+
+  // 4. Field cleanup after success
+  setEmail("");
+  setPassword("");
+
+  // 5. Periodic email verification
+  let attempts = 0;
+  const maxAttempts = 24; // 2 minutes
+
+  const checkEmailVerified = async () => {
+    await reload(user);
+    if (user.emailVerified) {
+      navigate("/");
+    } else if (attempts < maxAttempts) {
+      attempts++;
+      setTimeout(checkEmailVerified, 5000);
+    } else {
+      setError("We couldn't verify your email. Check your inbox.");
     }
   };
+
+  checkEmailVerified();
+};
 
   return (
     <div className="flex items-center justify-center relative w-full h-screen ">
@@ -55,6 +100,8 @@ const Register = () => {
             placeholder="Your name"
             className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
             autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <label
             htmlFor="email"
@@ -97,8 +144,8 @@ const Register = () => {
           {verificationMessage && (
             <p className="text-white">{verificationMessage}</p>
           )}
+          {error && <p className="text-white" >{error}</p>}
         </form>
-        {error && <p>{error}</p>}
       </div>
     </div>
   );

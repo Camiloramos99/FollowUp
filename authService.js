@@ -1,17 +1,12 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "./firebase.js";
-import { sendEmailVerification } from "firebase/auth";
 
 const registerUser = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    return user;
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
   } catch (error) {
+    console.error("Error al registrar usuario:", error.code, error.message);
     throw error;
   }
 };
@@ -19,7 +14,11 @@ const registerUser = async (email, password) => {
 const sendVerificationEmail = async (user) => {
   try {
     await sendEmailVerification(user);
-  } catch (error) {}
+    return true;
+  } catch (error) {
+    console.error("Error al enviar email de verificación:", error.code, error.message);
+    throw error;
+  }
 };
 
 export { registerUser, sendVerificationEmail };
