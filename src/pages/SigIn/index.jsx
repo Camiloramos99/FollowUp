@@ -1,7 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { loginUser } from "../../../authService";
 
 const SignIn = () => {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      setError("Please complete both fields.");
+      return;
+    }
+
+    try {
+      const user = await loginUser(email, password);
+      setError(null);
+      navigate("/")
+    } catch (error) {
+      setError("Incorrect email or password.");
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen items-center">
       <div className="login-container flex flex-col h-full w-80">
@@ -35,17 +58,19 @@ const SignIn = () => {
             className="bg-text-input-field text-base rounded-lg h-10 p-2 mb-6"
             autoComplete="current-password"
           />
-          <Link to="/">
-            <button className="place-self-center font-bold  bg-[#426B69] text-white rounded-lg h-12 w-full mb-4">
-              Log in
-            </button>
-          </Link>
+          <button 
+            className="place-self-center font-bold  bg-[#426B69] text-white rounded-lg h-12 w-full mb-4"
+            onClick={handleLogin}
+            >
+            Log in
+          </button>
           <a
             href="/"
             className="flex self-center text-sm font-sans text-[#426B69] mb-4"
           >
             Forgot my password
           </a>
+          {error && <p className="text-white" >{error}</p>}
         </div>
       </div>
     </div>
