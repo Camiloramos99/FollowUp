@@ -33,7 +33,7 @@ const handleRegister = async (e) => {
 
   // 2. User register
   try {
-    user = await registerUser(email, password);
+    user = await registerUser(email, password, name);
   } catch (err) {
     const errorMessages = {
       "auth/email-already-in-use": "This email address is already registered. You'll probably be logged in.",
@@ -98,7 +98,7 @@ const handleRegister = async (e) => {
             id="name"
             name="name"
             placeholder="Your name"
-            className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
+            className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"        
             autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}

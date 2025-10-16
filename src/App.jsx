@@ -7,11 +7,13 @@ import { Expense } from "./pages/Expense";
 import { SignIn } from "./pages/SigIn";
 import { Register } from "./pages/Register";
 import { AppProvider } from "./contexts/AppContext";
+import { UserProvider } from "./contexts/UserContext";
 import "./App.css";
 
 function App() {
   return (
     <>
+    <UserProvider> 
       <AppProvider>
         <Router>
           <NavBarProvider>
@@ -26,6 +28,7 @@ function App() {
           </NavBarProvider>
         </Router>
       </AppProvider>
+    </UserProvider>
     </>
   );
 }

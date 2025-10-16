@@ -1,21 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
+// import { loginUser } from "../../../authService";
 
 const NavBar = () => {
+  const { user } = useUser();
+  
   return (
     <nav className="flex items-center justify-between bg-[#426B69] text-sm p-0">
       <div className="flex items-center p-0 text-xl leading-none">
         <img src="src/assets/logo.png" alt="logo" className="h-12 w-15 p-0" />
       </div>
       <ul className="flex items-center space-x-5 w-full justify-end text-white">
-        <li className="flex p-5 items-center">
+        <li className="p-5 items-center hidden">
           <Link to="/">Habits</Link>
         </li>
-        <li className="flex p-5 items-center">
+        <li className="p-5 items-center hidden">
           <Link to="/to-do">To-DO</Link>
         </li>
-        <li className="flex p-5 items-center">
+        <li className="p-5 items-center hidden">
           <Link to="/expense">Expense</Link>
+        </li>
+        <li className="flex p-5 items-center cursor-pointer">
+          <span>¡Hi {user?.displayName || user?.email?.split("@")[0] || "Guest"}!</span>
         </li>
         <li className="flex items-center space-x-1 p-5">
           <button className="border border-gray-600 bg-gray-600 rounded-md w-16 h-7">

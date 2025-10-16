@@ -1,10 +1,15 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "./firebase.js";
 
-const registerUser = async (email, password) => {
+const registerUser = async (email, password, name) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    await updateProfile(user, {
+      displayName: name //aca habia una coma, la quitamos
+    });
+
     return user;
   } catch (error) {
     throw error;
@@ -20,7 +25,7 @@ const sendVerificationEmail = async (user) => {
   }
 };
 
-export const loginUser = async (email, password) => {
+ const loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
@@ -29,4 +34,4 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export { registerUser, sendVerificationEmail };
+export { registerUser, sendVerificationEmail, loginUser };

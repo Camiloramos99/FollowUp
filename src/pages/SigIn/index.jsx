@@ -2,14 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { loginUser } from "../../../authService";
+import { auth } from "../../../firebase";
 
 const SignIn = () => {
   const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
 
     if (!email || !password) {
       setError("Please complete both fields.");
@@ -17,9 +18,10 @@ const SignIn = () => {
     }
 
     try {
-      const user = await loginUser(email, password);
+      await loginUser(email, password);
+      await auth.currentUser.reload();
       setError(null);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       setError("Incorrect email or password.");
     }
@@ -40,10 +42,13 @@ const SignIn = () => {
           </label>
           <input
             type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             id="email"
             placeholder="your email"
             className="input input-email bg-text-input-field text-base rounded-lg h-10 p-2 mb-5"
             autoComplete="email"
+          
           />
           <label
             htmlFor="password"
@@ -53,6 +58,8 @@ const SignIn = () => {
           </label>
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             id="password"
             placeholder="your password"
             className="bg-text-input-field text-base rounded-lg h-10 p-2 mb-6"
@@ -70,7 +77,7 @@ const SignIn = () => {
           >
             Forgot my password
           </a>
-          {error && <p className="text-white" >{error}</p>}
+          {error && <p className="text-white">{error}</p>}
         </div>
       </div>
     </div>
