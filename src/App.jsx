@@ -8,6 +8,8 @@ import { SignIn } from "./pages/SigIn";
 import { Register } from "./pages/Register";
 import { AppProvider } from "./contexts/AppContext";
 import { UserProvider } from "./contexts/UserContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
         </Router>
       </AppProvider>
     </UserProvider>
+    <ToastContainer position="top-right" autoClose={2500} />
     </>
   );
 }
