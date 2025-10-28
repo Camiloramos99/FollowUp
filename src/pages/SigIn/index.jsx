@@ -78,6 +78,19 @@ const SignIn = () => {
             Forgot my password
           </a>
           {error && <p className="text-white">{error}</p>}
+
+          <div className="text-center mt-4">
+            <p className="text-gray-400 text-sm">
+              or
+            </p>
+            <button
+              onClick={() => navigate("/")} 
+              className="mt-2 text-green-400 hover:underline"
+            >
+              Continue as guest
+            </button>
+          </div>
+          
         </div>
       </div>
     </div>
