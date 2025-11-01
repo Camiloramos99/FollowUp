@@ -2,11 +2,12 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import { collection, addDoc, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useUser } from "./UserContext";
+import { toast } from "react-toastify";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const { user } = useUser();
+  const { user, loadingUser } = useUser();
 
   const defaultCalendarData = [
     { date: "2025-01-01", count: 3, description: "Push Ups: 3 x 15" },
@@ -16,42 +17,61 @@ const AppProvider = ({ children }) => {
   const [selectedDate, setSelectedDate] = useState();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [currentDescription, setCurrentDescription] = useState("");
-  const [calendarData, setCalendarData] = useState(defaultCalendarData);
+  const [calendarData, setCalendarData] = useState(null);
   const [calendarTitleText, setCalendarTitleText] = useState("Edit your habit title");
   const [loadingHabits, setLoadingHabits] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    const loadData = async () => {
-      setLoadingHabits(true);
+useEffect(() => {
+  const loadData = async () => {
+    setLoadingHabits(true);
 
-      if (user) {
-        try {
-          const querySnapshot = await getDocs(collection(db, "users", user.uid, "habits"));
-          const userHabits = querySnapshot.docs.map((doc) => doc.data());
-          if (userHabits.length > 0) {
-            setCalendarData(userHabits);
-          } else {
-            setCalendarData(defaultCalendarData);
-          }
+    try {
+      let data = [];
+      let title = "Edit your habit title";
 
-          const storedTitle = localStorage.getItem("calendarTitleText");
-          setCalendarTitleText(storedTitle || "Edit your habit title");
-        } catch (error) {
-          setCalendarData(defaultCalendarData);
-        }
-      } else {
-        //  Guest Mode
-        const storedData = localStorage.getItem("habitos");
-        const storedTitle = localStorage.getItem("calendarTitleText");
-        setCalendarData(storedData ? JSON.parse(storedData) : defaultCalendarData);
-        setCalendarTitleText(storedTitle || "Edit your habit title");
+      if (loadingUser) {
+        //  Firebase has not yet finished verifying if there is a user
+        return;
       }
 
-      setLoadingHabits(false);
-    };
+      if (user) {
+        //  We tried to retrieve data from Firestore
+        const querySnapshot = await getDocs(collection(db, "users", user.uid, "habits"));
+        const userHabits = querySnapshot.docs.map((doc) => doc.data());
+        data = userHabits.length > 0 ? userHabits : defaultCalendarData;
 
+        const storedTitle = localStorage.getItem("calendarTitleText");
+        title = storedTitle || title;
+      } else {
+        //  If there is no user, we use localStorage
+        const storedData = localStorage.getItem("habitos");
+        const storedTitle = localStorage.getItem("calendarTitleText");
+
+        data = storedData ? JSON.parse(storedData) : defaultCalendarData;
+        title = storedTitle || title;
+      }
+
+      setCalendarData(data || []);
+      setCalendarTitleText(title);
+    } catch (error) {
+
+      const fallbackData = localStorage.getItem("habitos");
+      const fallbackTitle = localStorage.getItem("calendarTitleText");
+
+      setCalendarData(fallbackData ? JSON.parse(fallbackData) : defaultCalendarData);
+      setCalendarTitleText(fallbackTitle || "Edit your habit title");
+    } finally {
+      setLoadingHabits(false);
+      setInitialized(true);
+    }
+  };
+
+  if (user !== undefined) {
     loadData();
-  }, [user]);
+  }
+}, [user]);
+
 
   const saveHabit = async (date, isChecked) => {
     const newHabit = {
@@ -93,9 +113,13 @@ const AppProvider = ({ children }) => {
         await addDoc(habitsRef, newHabit);
       }
     } catch (error) {
-      console.error("❌ Error guardando hábito en Firestore:", error);
+        toast.error("Error saving habit. Please try again.");
     }
   };
+
+  if (!initialized) {
+    return null;
+  }
 
   return (
     <AppContext.Provider

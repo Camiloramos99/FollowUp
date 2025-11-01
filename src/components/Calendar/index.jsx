@@ -22,10 +22,25 @@ const Calendar = () => {
     setCurrentDescription,
     selectedYear,
     setSelectedYear,
+    loadingHabits,
   } = useContext(AppContext);
+
+  if (loadingHabits || calendarData === null) {
+    return (
+      <div className="flex relative m-2 items-center">
+        <div className="w-10/12 h-48 bg-gray-700/20 rounded-lg animate-pulse"></div>
+        <div className="h-full w-34 rounded-lg ml-4">
+          <div className="h-10 w-full bg-gray-700/20 rounded animate-pulse mb-2"></div>
+          <div className="h-10 w-full bg-gray-700/20 rounded animate-pulse"></div>
+        </div>
+      </div>
+    );
+  }
 
   const startDate = new Date("2024-12-31");
   const endDate = new Date("2025-12-31");
+
+  if (!calendarData) return null;
 
   const allDates = generateDateRange(startDate, endDate).map((date) => {
     const found = calendarData.find((d) => d.date === date);
