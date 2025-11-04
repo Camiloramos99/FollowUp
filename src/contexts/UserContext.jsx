@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
         setLoadingUser(false);
       } else {
         setUser(null);
+        setLoadingUser(false);
       }
     });
 
