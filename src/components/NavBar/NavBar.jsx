@@ -4,6 +4,7 @@ import { useUser } from "../../contexts/UserContext";
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import logo from "../../assets/logo.png";
 
 
 const NavBar = () => {
@@ -24,7 +25,7 @@ const NavBar = () => {
   return (
     <nav className="flex items-center justify-between bg-[#426B69] text-sm p-0">
       <div className="flex items-center p-0 text-xl leading-none">
-        <img src="src/assets/logo.png" alt="logo" className="h-12 w-15 p-0" />
+        <img src={logo} alt="logo" className="h-12 w-15 p-0" />
       </div>
       <ul className="flex items-center space-x-5 w-full justify-end text-white">
         <li className="p-5 items-center hidden">
