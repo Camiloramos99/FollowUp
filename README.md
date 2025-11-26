@@ -15,7 +15,7 @@ El proyecto combina:
 - estructura escalable con Context API,
 - y un flujo de carga optimizado para despliegue.
 
-Demo online: https://follow-up-a3a76.web.app/
+Demo online: [https://follow-up-a3a76.web.app/](https://follow-up-a3a76.web.app/)
 
 ---
 
@@ -27,7 +27,7 @@ Demo online: https://follow-up-a3a76.web.app/
 - **Firebase Firestore**
 - **Firebase Hosting**
 - **React Calendar Heatmap**
-- **CSS personalizado** (más adelante se puede confirmar Tailwind)
+- **CSS personalizado** 
 
 ---
 
@@ -80,7 +80,7 @@ Al desarrollar Follow Up aprendí y apliqué:
 
 ## 📸 Capturas de pantalla
 ### Vista principal
-![Main View](/mnt/data/Captura de pantalla 2025-11-25 134525.png)
+![Main View](../FollowUp/src/assets/PrincipalView.png)
 
 ---
 
