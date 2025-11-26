@@ -146,6 +146,10 @@ firebase deploy
 ---
 
 ## 📄 Licencia
-Proyecto personal, libre para revisar y usar como referencia.
+
+This project is licensed under the **MIT License**.  
+You are free to use, modify, distribute, and reference the code, as long as the original copyright notice is included.
+
+For full details, see the [`LICENSE`](./LICENSE) file in the repository.
 
 ---
