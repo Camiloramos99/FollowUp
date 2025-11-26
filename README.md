@@ -80,7 +80,7 @@ Al desarrollar Follow Up aprendí y apliqué:
 
 ## 📸 Capturas de pantalla
 ### Vista principal
-![Main View](../FollowUp/src/assets/PrincipalView.png)
+![Main View](https://github.com/Camiloramos99/FollowUp/blob/main/src/assets/PrincipalView.png?raw=true)
 
 ---
 
