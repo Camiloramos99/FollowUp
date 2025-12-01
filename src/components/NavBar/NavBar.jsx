@@ -55,7 +55,7 @@ const NavBar = () => {
             <button className="border border-gray-600 bg-gray-600 rounded-md w-16 h-7">
               <Link to="/signIn">Sign In</Link>
             </button>
-            <button className="border border-white bg-white rounded-md w-16 h-7 text-black">
+            <button className="border border-white bg-white rounded-md w-16 h-7 text-black hidden">
               <Link to="/register">Register</Link>
             </button>
           </li>

@@ -37,7 +37,7 @@ function AppContent() {
             <Route path="/to-do" element={<ToDo />} />
             <Route path="/expense" element={<Expense />} />
             <Route path="/signIn" element={<SignIn />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<SignIn />} />
           </Routes>
         </NavBarProvider>
       </Router>
